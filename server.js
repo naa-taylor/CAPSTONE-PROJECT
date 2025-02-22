@@ -45,7 +45,7 @@ app.get("/businesses", async (req, res) => {
   }
 });
 // 🔎 Search Businesses by Category & Location
-app.get("/businesses/search", async (req, res) => {
+app.get("/search", async (req, res) => {
   const { category, lat, lng } = req.query;
 
   try {
