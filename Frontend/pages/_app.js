@@ -1,28 +1,26 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import { SessionProvider, useSession } from "next-auth/react"; // Import SessionProvider
-import "../styles/globals.css"; // Ensure Tailwind works
+"use client";
+import { Geist, Geist_Mono } from "next/font/google";
+import "../styles/globals.css"; // Ensure the correct path
+import { Providers } from "./providers"; // Ensure the correct path
 
-export default function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+function MyApp({ Component, pageProps }) {
   return (
-    <SessionProvider session={session}>
-      <AuthGuard>
+    <Providers>
+      <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Component {...pageProps} />
-      </AuthGuard>
-    </SessionProvider>
+      </div>
+    </Providers>
   );
 }
 
-// Redirect unauthenticated users to login
-function AuthGuard({ children }) {
-  const router = useRouter();
-  const { data: session, status } = useSession();
-
-  useEffect(() => {
-    if (status === "unauthenticated" && router.pathname !== "/login") {
-      router.push("/login");
-    }
-  }, [status, router]);
-
-  return <>{children}</>; // Only render children if authenticated or on the login page
-}
+export default MyApp;

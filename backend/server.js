@@ -1,4 +1,5 @@
 require("dotenv").config();
+console.log("MONGO_URI:", process.env.MONGO_URI); // Debugging line
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -21,6 +22,9 @@ app.get("/", (req, res) => {
     res.send("API is running...");
 });
 
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.error("❌ MongoDB Connection Error:", err));
 // ------------------------Business Routes-----------------
 
 //add a Business
@@ -120,7 +124,7 @@ app.post("/users/login", async (req, res) => {
 //post a review
 
 // ---------------------------start server-----------------------------------
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
