@@ -13,7 +13,7 @@ const Header = () => {
     <header className="bg-black text-white px-6 py-3 flex items-center justify-between">
       {/* Logo */}
       <div className="text-2xl font-bold cursor-pointer" onClick={() => router.push("/")}>
-        ~booksy
+        GlowGuide
       </div>
 
       {/* Search Bar */}

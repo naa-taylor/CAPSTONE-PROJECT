@@ -1,80 +1,67 @@
-import Header from "../../components/Header"; // ✅ Import Header
+import Header from "../../components/header";
 import Footer from "../../components/footer";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button, Input, Card } from "@heroui/react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import ImageGrid from "../../components/imagegrid"; // Import the ImageGrid component
 
 export default function Home() {
   const router = useRouter();
   const [userType, setUserType] = useState("client");
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const slides = ["/images/kb.jpg", "/images/SALON+1.jpg", "/images/salon3.jpg"];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [slides.length]);
 
   return (
     <div className="w-full">
-      {/* ✅ Added Header Here */}
+      {/* Header */}
       <Header />
 
-      {/* Hero Section */}
-      <div className="relative w-full h-screen flex flex-col items-center justify-center text-center">
-        <div className="absolute inset-0 overflow-hidden">
-          <Image
-            src={slides[currentSlide]}
-            alt="Hair Salon"
-            layout="fill"
-            objectFit="cover"
-            className="transition-opacity duration-1000"
-          />
+      {/* Hero Section with Image Grid */}
+      <div className="relative w-full min-h-screen flex flex-col items-center justify-center text-center bg-black pb-40">
+        <h1 className="text-white text-5xl md:text-6xl font-bold mt-10">Welcome to GlowGuide</h1>
+        <p className="mt-2 text-lg md:text-xl text-gray-300">
+          Discover and book top hair salon professionals near you.
+        </p>
+        
+        {/* Search Bar */}
+        <div className="mt-6 w-full max-w-md">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search hair salons"
+              className="w-full p-4 pl-10 rounded-full border-none text-black"
+            />
+            <span className="absolute left-3 top-4 text-gray-400">🔍</span>
+          </div>
         </div>
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 text-white text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold">Welcome to GlowGuide</h1>
-          <p className="mt-2 text-lg md:text-xl">
-            Discover and book top hair salon professionals near you.
-          </p>
-          <div className="mt-6 w-full max-w-md">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search hair salons"
-                className="w-full p-4 pl-10 rounded-full border-none text-black"
-              />
-              <span className="absolute left-3 top-4 text-gray-400">🔍</span>
-            </div>
-          </div>
-          <div className="mt-6 flex gap-4">
-            <Button
-              color="primary"
-              size="lg"
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg"
-              onPress={() => router.push("/service/login")}
-            >
-              Login
-            </Button>
-            <Button
-              color="secondary"
-              size="lg"
-              className="bg-gray-700 text-white px-6 py-3 rounded-lg"
-              onPress={() => router.push("/list-business")}
-            >
-              List Your Business
-            </Button>
-          </div>
+
+        {/* Buttons */}
+        <div className="mt-6 flex gap-4">
+          <Button
+            color="primary"
+            size="lg"
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg"
+            onPress={() => router.push("/service/login")}
+          >
+            Login
+          </Button>
+          <Button
+            color="secondary"
+            size="lg"
+            className="bg-gray-700 text-white px-6 py-3 rounded-lg"
+            onPress={() => router.push("/list-business")}
+          >
+            List Your Business
+          </Button>
+        </div>
+
+        {/* FUTURISTIC IMAGE GRID SECTION */}
+        <div className="relative w-full mt-16 z-0">
+          <ImageGrid />
         </div>
       </div>
 
-      {/* Features Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-12 bg-gray-50">
+      {/* Features Section - No Overlap */}
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 p-12 bg-gray-50">
         <div className="bg-blue-100 p-6 rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold">Find & book an appointment</h2>
           <p className="mt-2 text-gray-700">
@@ -87,11 +74,11 @@ export default function Home() {
           <p className="mt-2 text-gray-700">
             Get started with GlowGuide to run your business better. Calendar, booking, and payments all in one.
           </p>
-          <Button 
-          color="secondary"
-          size="lg"
-          className="bg-gray-700 text-white px-6 py-3 rounded-lg"
-          onPress={() => window.open("/service/grow-business", "_blank")}
+          <Button
+            color="secondary"
+            size="lg"
+            className="bg-gray-700 text-white px-6 py-3 rounded-lg"
+            onPress={() => window.open("/service/grow-business", "_blank")}
           >
             Grow My Business
           </Button>
@@ -144,7 +131,7 @@ export default function Home() {
         </Card>
       </div>
 
-      {/* ✅ Add Footer Here */}
+      {/* Footer */}
       <Footer />
     </div>
   );
