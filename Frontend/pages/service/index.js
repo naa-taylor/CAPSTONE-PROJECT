@@ -1,3 +1,4 @@
+import Header from "../../components/Header"; // ✅ Import Header
 import Footer from "../../components/footer";
 import { useState, useEffect } from "react";
 import { Button, Input, Card } from "@heroui/react";
@@ -21,6 +22,9 @@ export default function Home() {
 
   return (
     <div className="w-full">
+      {/* ✅ Added Header Here */}
+      <Header />
+
       {/* Hero Section */}
       <div className="relative w-full h-screen flex flex-col items-center justify-center text-center">
         <div className="absolute inset-0 overflow-hidden">
@@ -83,7 +87,14 @@ export default function Home() {
           <p className="mt-2 text-gray-700">
             Get started with GlowGuide to run your business better. Calendar, booking, and payments all in one.
           </p>
-          <Button className="mt-4 bg-gray-800 text-white">Grow My Business</Button>
+          <Button 
+          color="secondary"
+          size="lg"
+          className="bg-gray-700 text-white px-6 py-3 rounded-lg"
+          onPress={() => window.open("/service/grow-business", "_blank")}
+          >
+            Grow My Business
+          </Button>
         </div>
       </div>
 
@@ -135,7 +146,6 @@ export default function Home() {
 
       {/* ✅ Add Footer Here */}
       <Footer />
-      
     </div>
   );
 }
