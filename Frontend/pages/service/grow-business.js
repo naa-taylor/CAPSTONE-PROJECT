@@ -2,9 +2,21 @@
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useSession, signIn } from "next-auth/react";
 
 export default function GrowBusiness() {
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  const handleStartTrial = () => {
+    if (status === "loading") return; // Prevent navigation while session is loading
+
+    if (!session) {
+      signIn(); // If not signed in, redirect to login page
+    } else {
+      router.push("/service/onboarding"); // If signed in, go to onboarding page
+    }
+  };
 
   return (
     <div className="w-full">
@@ -12,7 +24,7 @@ export default function GrowBusiness() {
       <div className="relative w-full h-screen flex flex-col items-center justify-center text-center bg-gray-100">
         <div className="absolute inset-0 overflow-hidden">
           <Image
-            src="/images/grow-business-hero.jpg"
+            src="/images/Close-up Portrait with Curly Hair.jpeg"
             alt="Grow Your Business"
             layout="fill"
             objectFit="cover"
@@ -25,11 +37,13 @@ export default function GrowBusiness() {
           <p className="mt-2 text-lg md:text-xl">
             The ultimate platform to manage appointments and client interactions.
           </p>
+          
+          {/* Get Started Button (Uses Same Logic as "Start Free Trial") */}
           <Button
             color="primary"
             size="lg"
             className="bg-blue-600 text-white px-6 py-3 rounded-lg mt-4"
-            onPress={() => router.push("/service/signup-business")}
+            onPress={handleStartTrial}
           >
             Get Started
           </Button>
@@ -56,11 +70,13 @@ export default function GrowBusiness() {
       <div className="flex flex-col items-center justify-center bg-blue-500 text-white py-12 px-6">
         <h2 className="text-3xl font-bold">Let's Do More, Better</h2>
         <p className="mt-2 text-lg">Get started today and take your business to the next level.</p>
+
+        {/* Start Free Trial Button (Uses Same Logic as "Get Started") */}
         <Button
           color="secondary"
           size="lg"
           className="bg-black text-white px-6 py-3 rounded-lg mt-4"
-          onPress={() => router.push("/service/onboarding")}
+          onPress={handleStartTrial}
         >
           Start Free Trial
         </Button>

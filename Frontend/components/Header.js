@@ -1,81 +1,37 @@
-"use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { MagnifyingGlassIcon, UserIcon, GlobeAltIcon, CalendarIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import { useSession, signIn, signOut } from "next-auth/react";
 
-const Header = () => {
-  const router = useRouter();
-  const [search, setSearch] = useState("");
-  const [location, setLocation] = useState("");
-  const [date, setDate] = useState("");
+export default function Header() {
+  const { data: session } = useSession();
 
   return (
-    <header className="bg-black text-white px-6 py-3 flex items-center justify-between">
-      {/* Logo */}
-      <div className="text-2xl font-bold cursor-pointer" onClick={() => router.push("/")}>
-        GlowGuide
-      </div>
-
-      {/* Search Bar */}
-      <div className="flex items-center bg-white text-black px-3 py-2 rounded-lg w-96">
-        <MagnifyingGlassIcon className="h-5 w-5 text-gray-500" />
-        <input
-          type="text"
-          placeholder="Search services or businesses"
-          className="ml-2 outline-none w-full"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+    <header className="bg-black text-white p-4 flex items-center justify-between">
+      {/* Logo Section */}
+      <div className="flex items-center">
+        <Image 
+          src="/images/b4ea91405ecd919fa4dfedbe1303ecce-removebg-preview.png" // Update with your actual logo filename
+          alt="GlowGuide Logo"
+          width={60}  // Make it smaller
+          height={60} // Keep proportions
         />
       </div>
 
-      {/* Location Input */}
-      <div className="flex items-center bg-white text-black px-3 py-2 rounded-lg w-40">
-        <GlobeAltIcon className="h-5 w-5 text-gray-500" />
-        <input
-          type="text"
-          placeholder="Where?"
-          className="ml-2 outline-none w-full"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
+      {/* Right Section (Login & Dropdown) */}
+      <div className="flex items-center space-x-6">
+        {/* Login / Account */}
+        <button 
+          onClick={() => session ? signOut() : signIn()} 
+          className="bg-blue-500 px-4 py-2 rounded-lg text-white hover:bg-blue-700"
+        >
+          {session ? "Account" : "Log In / Sign Up"}
+        </button>
+
+        {/* Dropdown Menu */}
+        <div className="relative">
+          <button className="bg-white text-black px-4 py-2 rounded-lg">▼</button>
+          {/* Dropdown Content (Optional) */}
+        </div>
       </div>
-
-      {/* Date Input */}
-      <div className="flex items-center bg-white text-black px-3 py-2 rounded-lg w-32">
-        <CalendarIcon className="h-5 w-5 text-gray-500" />
-        <input
-          type="text"
-          placeholder="When?"
-          className="ml-2 outline-none w-full"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-      </div>
-
-      {/* Login / Signup */}
-      <button
-        onClick={() => router.push("/login")}
-        className="flex items-center space-x-2 hover:opacity-80"
-      >
-        <UserIcon className="h-6 w-6" />
-        <span>Log In / Sign Up</span>
-      </button>
-
-      {/* Country Selector */}
-      <div className="flex items-center space-x-2">
-        <span>🇨🇦</span>
-        <span>CA</span>
-      </div>
-
-      {/* List Your Business */}
-      <button
-        onClick={() => router.push("/list-business")}
-        className="bg-white text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-200"
-      >
-        List your business
-      </button>
     </header>
   );
-};
-
-export default Header;
+}
