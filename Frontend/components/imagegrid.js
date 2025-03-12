@@ -6,7 +6,7 @@ const imageData = [
     { src: "/images/Platinum Blonde Portrait.jpeg", alt: "Hairstyle 1" },
     { src: "/images/Red Hair and Green Eyes.jpeg", alt: "Hairstyle 2" },
     { src: "/images/Portrait of a Young Woman.jpeg", alt: "Hairstyle 3" },
-    { src: "/images/Elegant Portrait.jpeg", alt: "Hairstyle 4" },
+    { src: "/images/Tagli Capelli Donna 2024_ Immagini Di Tendenza Da Copiare.jpeg", alt: "Hairstyle 4" },
     { src: "/images/Elegant Braided Portrait.jpeg", alt: "Hairstyle 5" },
     { src: "/images/Radiant Portrait.jpeg", alt: "Hairstyle 6" },
     { src: "/images/Elegant Woman with Braided Hair.jpeg", alt: "Hairstyle 7" },
