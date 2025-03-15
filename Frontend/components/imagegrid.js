@@ -33,8 +33,8 @@ export default function RotatingImageCarousel() {
   return (
     <div className="relative flex items-center justify-center h-screen bg-black overflow-hidden">
       <div
-        className="relative w-96 h-96 flex items-center justify-center"
-        style={{ perspective: "1800px" }} // Increased depth for spacing
+        className="relative w-[500px] h-[500px] flex items-center justify-center"
+        style={{ perspective: "2200px" }} // Increased depth for better spacing
       >
         {imageData.map((image, index) => {
           const offset = (index - currentIndex + imageData.length) % imageData.length;
@@ -46,7 +46,7 @@ export default function RotatingImageCarousel() {
               key={index}
               className="absolute w-80 h-96 transition-transform duration-700 ease-in-out"
               style={{
-                transform: `rotateY(${rotation}deg) translateZ(750px)`, // Increased distance for spacing
+                transform: `rotateY(${rotation}deg) translateZ(990px)`, // Increased distance for spacing
                 opacity: isActive ? 1 : 0.7,
                 backfaceVisibility: "hidden", // Prevents image doubling
               }}
