@@ -52,7 +52,7 @@ export default function Signup() {
           placeholder="Last Name"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
-          className="w-full p-3 border rounded-lg mt-4"
+          className="w-full p-3 border rounded-lg mt-4 mb-4"
         />
         <PhoneInput
           country={"ca"}
