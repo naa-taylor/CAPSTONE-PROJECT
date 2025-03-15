@@ -3,16 +3,20 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const imageData = [
-    { src: "/images/Platinum Blonde Portrait.jpeg", alt: "Hairstyle 1" },
-    { src: "/images/Red Hair and Green Eyes.jpeg", alt: "Hairstyle 2" },
-    { src: "/images/Portrait of a Young Woman.jpeg", alt: "Hairstyle 3" },
-    { src: "/images/Tagli Capelli Donna 2024_ Immagini Di Tendenza Da Copiare.jpeg", alt: "Hairstyle 4" },
-    { src: "/images/Elegant Braided Portrait.jpeg", alt: "Hairstyle 5" },
-    { src: "/images/Radiant Portrait.jpeg", alt: "Hairstyle 6" },
-    { src: "/images/Elegant Woman with Braided Hair.jpeg", alt: "Hairstyle 7" },
-    { src: "/images/Portrait of an albino woman.jpeg", alt: "Hairstyle 8" },
-    { src: "/images/Thoughtful Portrait.jpeg", alt: "Hairstyle 9" },
-    { src: "/images/Portrait of Young Woman.jpeg", alt: "Hairstyle 10" },
+    { src: "/images/asian-waves.jpg", alt: "Hairstyle 1" },
+    { src: "/images/Platinum Blonde Portrait.jpeg", alt: "Hairstyle 2" },
+    { src: "/images/Red Hair and Green Eyes.jpeg", alt: "Hairstyle 3" },
+    { src: "/images/Portrait of a Young Woman.jpeg", alt: "Hairstyle 4" },
+    { src: "/images/Elegant Portrait.jpeg", alt: "Hairstyle 5" },
+    { src: "/images/south-asian-3b-hair.png", alt: "Hairstyle 6"},
+    { src: "/images/Elegant Braided Portrait.jpeg", alt: "Hairstyle 7" },
+    { src: "/images/Radiant Portrait.jpeg", alt: "Hairstyle 8" },
+    { src: "/images/long-wavy-hair-curtain-bangs.jpg", alt: "Hairstyle 9"},
+    { src: "/images/Elegant Woman with Braided Hair.jpeg", alt: "Hairstyle 10" },
+    { src: "/images/Portrait of an albino woman.jpeg", alt: "Hairstyle 11" },
+    { src: "/images/Thoughtful Portrait.jpeg", alt: "Hairstyle 12" },
+    { src: "/images/Portrait of Young Woman.jpeg", alt: "Hairstyle 13" },
+    { src: "/images/south asian curls.png", alt: "Hairstyle 14"},
 ];
 
 export default function RotatingImageCarousel() {
