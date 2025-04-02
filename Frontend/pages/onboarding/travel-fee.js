@@ -1,37 +1,50 @@
-import { useRouter } from "next/router";
+"use client";
 
-export default function ConfirmAddress() {
-  const router = useRouter(); // Use Next.js Router for navigation
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export default function TravelFee() {
+  const router = useRouter();
+  const [fee, setFee] = useState("");
+  const [distance, setDistance] = useState("");
+
+  const handleNext = () => {
+    if (!distance) {
+      alert("Please enter a maximum travel distance.");
+      return;
+    }
+
+    // You can save the data here before navigating
+    router.push("/onboarding/subscribe");
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold text-center">Confirm Your Address</h2>
-        <p className="text-gray-500 text-center">
-          Please confirm your business address before proceeding.
-        </p>
+        <h2 className="text-2xl font-bold text-center">What is your travel fee?</h2>
+        <p className="text-gray-500 text-center mb-4">Add your minimum travel fee.</p>
 
         <input
-          type="text"
-          placeholder="Street Address"
-          className="w-full p-3 border rounded-lg mt-4"
+          type="number"
+          placeholder="Travel Fee ($)"
+          value={fee}
+          onChange={(e) => setFee(e.target.value)}
+          className="w-full p-3 border rounded-lg mb-4"
         />
+
         <input
-          type="text"
-          placeholder="City"
-          className="w-full p-3 border rounded-lg mt-4"
-        />
-        <input
-          type="text"
-          placeholder="Zip Code"
-          className="w-full p-3 border rounded-lg mt-4"
+          type="number"
+          placeholder="Max Distance (mi)"
+          value={distance}
+          onChange={(e) => setDistance(e.target.value)}
+          className="w-full p-3 border rounded-lg mb-4"
         />
 
         <button
-          onClick={() => router.push("/onboarding/travel-fee")} // Redirect to next step
-          className="w-full bg-blue-600 text-white py-2 rounded-lg mt-4"
+          onClick={handleNext}
+          className="w-full bg-black text-white py-2 rounded-lg"
         >
-          Confirm Address & Continue
+          Continue
         </button>
       </div>
     </div>

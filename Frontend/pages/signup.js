@@ -8,24 +8,30 @@ import "react-phone-input-2/lib/style.css";
 export default function Signup() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const emailFromQuery = searchParams.get("email"); // Get email from URL
+  const emailFromQuery = searchParams.get("email");
 
   const [email, setEmail] = useState(emailFromQuery || "");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!emailFromQuery) {
-      router.push("/login"); // Redirect if no email
+      router.push("/login");
     }
   }, [emailFromQuery, router]);
 
   const handleSignup = () => {
-    // Simulate saving user data (Replace with actual API call later)
-    
-    // Redirect to first onboarding step
+    if (!firstName || !lastName || !phone || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    setError(""); // Clear previous errors
+
+    // Redirect to onboarding step
     router.push("/onboarding/work-location");
   };
 
@@ -64,6 +70,7 @@ export default function Signup() {
             borderRadius: "8px",
             border: "1px solid #ccc",
             paddingLeft: "50px",
+            marginTop: "16px"
           }}
         />
         <input
@@ -73,6 +80,10 @@ export default function Signup() {
           onChange={(e) => setPassword(e.target.value)}
           className="w-full p-3 border rounded-lg mt-4"
         />
+
+        {error && (
+          <p className="text-red-500 text-center mt-2">{error}</p>
+        )}
 
         <button
           onClick={handleSignup}
