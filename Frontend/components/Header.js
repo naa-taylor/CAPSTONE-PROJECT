@@ -1,36 +1,29 @@
 import Image from "next/image";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
-  const { data: session } = useSession();
+  const router = useRouter();
 
   return (
     <header className="bg-black text-white p-4 flex items-center justify-between">
-      {/* Logo Section */}
+      {/* Logo */}
       <div className="flex items-center">
         <Image 
-          src="/images/b4ea91405ecd919fa4dfedbe1303ecce-removebg-preview.png" // Update with your actual logo filename
+          src="/images/b4ea91405ecd919fa4dfedbe1303ecce-removebg-preview.png"
           alt="GlowGuide Logo"
-          width={60}  // Make it smaller
-          height={60} // Keep proportions
+          width={60}
+          height={60}
         />
       </div>
 
-      {/* Right Section (Login & Dropdown) */}
-      <div className="flex items-center space-x-6">
-        {/* Login / Account */}
+      {/* Login Button only */}
+      <div>
         <button 
-          onClick={() => session ? signOut() : signIn()} 
-          className="bg-blue-500 px-4 py-2 rounded-lg text-white hover:bg-blue-700"
+          onClick={() => router.push("/login")}
+          className="bg-blue-500 px-6 py-2 rounded-lg text-white hover:bg-blue-700 transition"
         >
-          {session ? "Account" : "Log In / Sign Up"}
+          Login
         </button>
-
-        {/* Dropdown Menu */}
-        <div className="relative">
-          <button className="bg-white text-black px-4 py-2 rounded-lg">▼</button>
-          {/* Dropdown Content (Optional) */}
-        </div>
       </div>
     </header>
   );

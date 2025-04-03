@@ -1,25 +1,37 @@
 "use client";
 import { Button } from "@heroui/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
+import { ExternalLink } from "lucide-react"; // Make sure you have this installed
 
 export default function GrowBusiness() {
   const router = useRouter();
   const { data: session, status } = useSession();
 
   const handleStartTrial = () => {
-    if (status === "loading") return; // Prevent navigation while session is loading
-
+    if (status === "loading") return;
     if (!session) {
-      signIn(); // If not signed in, redirect to login page
+      signIn();
     } else {
-      router.push("/service/onboarding"); // If signed in, go to onboarding page
+      router.push("/service/onboarding");
     }
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
+      {/* FOR CUSTOMER Button (top-right corner) */}
+      <div className="absolute top-4 right-6 z-30">
+        <Link
+          href="/"
+          className="flex items-center gap-1 bg-black text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow hover:bg-gray-800 transition"
+        >
+          FOR CUSTOMER
+          <ExternalLink className="w-4 h-4" />
+        </Link>
+      </div>
+
       {/* Hero Section */}
       <div className="relative w-full h-screen flex flex-col items-center justify-center text-center bg-gray-100">
         <div className="absolute inset-0 overflow-hidden">
@@ -37,12 +49,10 @@ export default function GrowBusiness() {
           <p className="mt-2 text-lg md:text-xl">
             The ultimate platform to manage appointments and client interactions.
           </p>
-          
-          {/* Get Started Button (Uses Same Logic as "Start Free Trial") */}
           <Button
             color="primary"
             size="lg"
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg mt-4"
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg mt-4 hover:bg-blue-700"
             onPress={handleStartTrial}
           >
             Get Started
@@ -50,7 +60,7 @@ export default function GrowBusiness() {
         </div>
       </div>
 
-      {/* Business Features */}
+      {/* Business Features Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-12 bg-white text-center">
         <div className="p-6 rounded-lg shadow-lg border">
           <h2 className="text-2xl font-bold">24/7 Online Booking</h2>
@@ -66,16 +76,14 @@ export default function GrowBusiness() {
         </div>
       </div>
 
-      {/* Call to Action */}
+      {/* CTA Section */}
       <div className="flex flex-col items-center justify-center bg-blue-500 text-white py-12 px-6">
         <h2 className="text-3xl font-bold">Let's Do More, Better</h2>
         <p className="mt-2 text-lg">Get started today and take your business to the next level.</p>
-
-        {/* Start Free Trial Button (Uses Same Logic as "Get Started") */}
         <Button
           color="secondary"
           size="lg"
-          className="bg-black text-white px-6 py-3 rounded-lg mt-4"
+          className="bg-black text-white px-6 py-3 rounded-lg mt-4 hover:bg-gray-800"
           onPress={handleStartTrial}
         >
           Start Free Trial
