@@ -2,31 +2,45 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import useGeoLocation from "../../hooks/useGeoLocation";
 
 export default function Address() {
   const router = useRouter();
+  const location = useGeoLocation();
 
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
-  const [zip, setZip] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [province, setProvince] = useState("");
   const [error, setError] = useState("");
 
   const handleContinue = () => {
-    // Check if fields are filled
-    if (!street || !city || !zip) {
+    if (!street || !city || !postalCode || !province) {
       setError("Please fill in all the fields before continuing.");
       return;
     }
 
-    setError(""); // Clear error if all fields are valid
+    const geoCoords =
+      location.loaded && !location.error
+        ? location.coordinates
+        : { lat: 43.9454, lng: -78.8965 }; // Default: Durham College
 
-    const query = new URLSearchParams({
-      street,
-      city,
-      zip,
-    }).toString();
+    // ✅ Save address info and geo-coordinates to localStorage
+    localStorage.setItem(
+      "business_address",
+      JSON.stringify({
+        street,
+        city,
+        postalCode: postalCode,
+        province,
+        coordinates: [geoCoords.lng, geoCoords.lat],
+      })
+    );
 
-    router.push(`/onboarding/confirm-address?${query}`);
+    setError("");
+
+    // ✅ Always go to confirmation page after entering address
+    router.push("/onboarding/confirm-address");
   };
 
   return (
@@ -51,10 +65,17 @@ export default function Address() {
         />
         <input
           type="text"
-          placeholder="Zip Code"
+          placeholder="Postal Code"
           className="w-full p-3 border rounded-lg mt-4"
-          value={zip}
-          onChange={(e) => setZip(e.target.value)}
+          value={postalCode}
+          onChange={(e) => setPostalCode(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Province"
+          className="w-full p-3 border rounded-lg mt-4"
+          value={province}
+          onChange={(e) => setProvince(e.target.value)}
         />
 
         {error && (

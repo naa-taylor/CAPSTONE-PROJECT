@@ -1,37 +1,95 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ChevronDown, Trash2 } from "lucide-react"; // optional icons
+
+const SERVICE_OPTIONS = [
+  // General / Salon
+  "Haircut", "Blowout", "Hair Coloring", "Highlights", "Balayage", "Ombre",
+  "Deep Conditioning", "Scalp Treatment", "Silk Press", "Keratin Treatment",
+  "Perms", "Relaxer Treatment",
+
+  // Men’s Cuts & Styling
+  "Men's Haircut", "Beard Trim", "Fade", "Line Up", "Men’s Hair Styling",
+
+  // Protective Styles / Extensions
+  "Hair Extensions", "Tape-In Extensions", "Weave Install", "Wig Install", "Wig Customization",
+
+  // Braids & Locs
+  "Braiding", "Box Braids", "Knotless Braids", "Cornrows", "Faux Locs",
+  "Locs Retwist", "Twist Out", "Curly Hair Styling"
+];
 
 export default function Services() {
   const router = useRouter();
-  const [services, setServices] = useState([
-    { name: "Female Haircut", duration: "45min", price: "$35.00" },
-    { name: "Hair Extensions", duration: "2h", price: "$100.00" },
-    { name: "Hair Color", duration: "1h 30min", price: "$70.00" },
-  ]);
+  const [selected, setSelected] = useState("");
+  const [services, setServices] = useState([]);
+
+  const handleAdd = () => {
+    if (selected && !services.includes(selected)) {
+      setServices([...services, selected]);
+      setSelected("");
+    }
+  };
+
+  const handleRemove = (item) => {
+    setServices(services.filter(service => service !== item));
+  };
 
   const handleContinue = () => {
-    router.push("/onboarding/profile-live"); // Move to next step
+    if (services.length === 0) {
+      alert("Please select at least one service.");
+      return;
+    }
+
+    localStorage.setItem("business_services", JSON.stringify(services));
+    router.push("/onboarding/subscribe");
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold text-center">Start Adding Services</h2>
-        <p className="text-gray-500 text-center">Add at least one service to continue.</p>
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center mb-2">💇 Start Adding Services</h2>
+        <p className="text-gray-500 text-center mb-4">Choose from the dropdown below.</p>
 
-        <div className="mt-4 space-y-2">
-          {services.map((service, index) => (
-            <div key={index} className="border p-3 rounded-lg flex justify-between">
-              <span>{service.name} ({service.duration})</span>
-              <span>{service.price}</span>
-            </div>
-          ))}
+        <div className="flex gap-2 mb-4">
+          <select
+            value={selected}
+            onChange={(e) => setSelected(e.target.value)}
+            className="flex-1 border rounded-lg px-3 py-2"
+          >
+            <option value="">-- Select a service --</option>
+            {SERVICE_OPTIONS.map((service, idx) => (
+              <option key={idx} value={service}>{service}</option>
+            ))}
+          </select>
+          <button
+            onClick={handleAdd}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+          >
+            Add
+          </button>
         </div>
+
+        {services.length > 0 && (
+          <ul className="space-y-2 mb-4">
+            {services.map((service, idx) => (
+              <li
+                key={idx}
+                className="flex justify-between items-center border px-3 py-2 rounded-lg text-sm"
+              >
+                {service}
+                <button onClick={() => handleRemove(service)} className="text-red-500 hover:text-red-700">
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
 
         <button
           onClick={handleContinue}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg mt-4"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-2 transition-colors"
         >
           Continue
         </button>

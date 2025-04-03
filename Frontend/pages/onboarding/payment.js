@@ -10,16 +10,15 @@ export default function Payment() {
   const [error, setError] = useState("");
 
   const handlePay = () => {
-    const cleanCard = card.replace(/\s+/g, ""); // remove spaces
+    const cleanCard = card.replace(/\s+/g, "");
 
-    if (
-      cleanCard === "4724090850126127" &&
-      expiry === "0928" &&
-      cvv === "838"
-    ) {
+    if (cleanCard === "4724090850126127" && expiry === "0928" && cvv === "838") {
       setError("");
-      // Simulate success
-      router.push("/onboarding/thank-you"); // or "/dashboard"
+
+      // ✅ Save subscription info correctly
+      localStorage.setItem("business_subscription", JSON.stringify({ plan: "basic", status: "paid" }));
+
+      router.push("/onboarding/thank-you");
     } else {
       setError("Payment failed. Use the test card details provided.");
     }
@@ -28,7 +27,7 @@ export default function Payment() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold text-center">Enter Payment Details</h2>
+        <h2 className="text-2xl font-bold text-center">💳 Enter Payment Details</h2>
         <p className="text-sm text-center text-gray-500 mb-4">
           Use test card info: <br />
           <span className="font-mono">4724 0908 5012 6127</span> / <span className="font-mono">0928</span> / <span className="font-mono">838</span>
@@ -62,7 +61,7 @@ export default function Payment() {
 
         <button
           onClick={handlePay}
-          className="w-full bg-black text-white py-2 rounded-lg mt-4"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-4 transition-colors"
         >
           Pay Now
         </button>
