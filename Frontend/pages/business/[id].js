@@ -61,21 +61,24 @@ export default function BusinessProfile() {
       {business.isMobile && (
         <p className="text-blue-700">This stylist offers mobile services within {business.travelRadius} km</p>
       )}
-  
-      {/* 📷 Image Gallery */}
-      {business.images?.length > 0 && (
-        <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
-          {business.images.map((img, index) => (
+        
+            {/* 📸 Common Mini Gallery - Same For All Businesses */}
+      <div className="mt-6">
+        <h3 className="font-semibold text-lg mb-2">Featured Styles:</h3>
+        <div className="flex overflow-x-auto space-x-4 snap-x snap-mandatory pb-2">
+          {["hair 1.jpg", "hair 4.avif", "hair 5.jpeg", "hair 6.avif"].map((img, index) => (
             <img
               key={index}
-              src={img}
-              alt={`example-${index}`}
-              className="w-full h-48 object-cover rounded-md"
+              src={`/images/${img}`}
+              alt={`featured-style-${index}`}
+              className="h-32 w-48 flex-shrink-0 object-cover rounded-md snap-start"
             />
           ))}
         </div>
-      )}
-  
+      </div>
+
+
+      
       {/* 🔧 Services */}
       <div className="mt-4">
         <h3 className="font-semibold text-lg">Services:</h3>
