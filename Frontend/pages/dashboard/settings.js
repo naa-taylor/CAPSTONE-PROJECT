@@ -1,52 +1,56 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@heroui/react";
 
 export default function Settings() {
-  const [businessName, setBusinessName] = useState("GlowGuide Salon");
-  const [email, setEmail] = useState("info@glowguide.com");
-  const [phone, setPhone] = useState("+1 647 510 7207");
+  const router = useRouter();
+
+  const [businessName, setBusinessName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [workingHours, setWorkingHours] = useState({
-    monday: "9:00 AM - 6:00 PM",
-    tuesday: "9:00 AM - 6:00 PM",
-    wednesday: "9:00 AM - 6:00 PM",
-    thursday: "9:00 AM - 6:00 PM",
-    friday: "9:00 AM - 8:00 PM",
-    saturday: "10:00 AM - 4:00 PM",
-    sunday: "Closed",
+    monday: "",
+    tuesday: "",
+    wednesday: "",
+    thursday: "",
+    friday: "",
+    saturday: "",
+    sunday: "",
   });
 
   const handleSave = () => {
-    alert("Settings updated successfully!");
+    alert("Settings saved!");
+    router.push("/dashboard"); // 🔁 Redirect after saving
   };
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Profile & Settings</h1>
 
-      {/* Business Information */}
+      {/* Business Info */}
       <div className="bg-white p-6 rounded-lg shadow-md mb-6">
         <h2 className="text-lg font-semibold mb-2">Business Information</h2>
         <input
           type="text"
           className="w-full p-2 border rounded mb-2"
+          placeholder="Business Name (e.g., GlowGuide Salon)"
           value={businessName}
           onChange={(e) => setBusinessName(e.target.value)}
-          placeholder="Business Name"
         />
         <input
           type="email"
           className="w-full p-2 border rounded mb-2"
+          placeholder="Email (e.g., info@glowguide.com)"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Business Email"
         />
         <input
           type="text"
           className="w-full p-2 border rounded mb-2"
+          placeholder="Phone Number (e.g., +1 647 510 7207)"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          placeholder="Phone Number"
         />
       </div>
 
@@ -59,14 +63,17 @@ export default function Settings() {
             <input
               type="text"
               className="p-2 border rounded w-1/2"
+              placeholder="e.g., 9:00 AM - 6:00 PM or Closed"
               value={workingHours[day]}
-              onChange={(e) => setWorkingHours({ ...workingHours, [day]: e.target.value })}
+              onChange={(e) =>
+                setWorkingHours({ ...workingHours, [day]: e.target.value })
+              }
             />
           </div>
         ))}
       </div>
 
-      {/* Save Changes Button */}
+      {/* Save Button */}
       <Button
         className="bg-blue-600 text-white px-4 py-2 rounded-lg"
         onPress={handleSave}
