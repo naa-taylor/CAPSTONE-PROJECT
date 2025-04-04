@@ -75,7 +75,7 @@ export default function HowItWorksSection() {
             }}
           >
             <Image
-              src="/images/calendar.jpg"
+              src="/images/.jpg"
               alt="Reminders"
               width={500}
               height={500}

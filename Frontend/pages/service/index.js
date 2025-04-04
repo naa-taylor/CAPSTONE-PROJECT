@@ -7,7 +7,6 @@ import FeatureSection from "../../components/FeatureSection";
 import HowItWorksSection from "../../components/HowItWorksSection";
 import GradientParticles from "../../components/GradientParticles";
 import { useState } from "react";
-import { Button } from "@heroui/react";
 import useGeoLocation from "../../hooks/useGeoLocation";
 import { FaStar, FaUserCircle } from "react-icons/fa";
 
@@ -41,12 +40,12 @@ export default function Home() {
   const handleSelectSuggestion = (service) => {
     setSearchTerm(service);
     setSuggestions([]);
-    window.open(`/service/search-results?query=${encodeURIComponent(service)}`, "_self");
+    window.location.href = `/service/search-results?query=${encodeURIComponent(service)}`;
   };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && searchTerm.trim()) {
-      window.open(`/service/search-results?query=${encodeURIComponent(searchTerm)}`, "_self");
+      window.location.href = `/service/search-results?query=${encodeURIComponent(searchTerm)}`;
     }
   };
 
@@ -63,7 +62,7 @@ export default function Home() {
         </p>
 
         {/* Search */}
-        <div className="mt-6 w-full max-w-md relative">
+        <div id="search" className="mt-6 w-full max-w-md relative">
           <div className="relative">
             <input
               type="text"
@@ -107,7 +106,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Features - Now with text-white instead of text-black */}
       <div className="text-white">
         <FeatureSection />
 
@@ -116,7 +114,7 @@ export default function Home() {
           <HowItWorksSection />
         </div>
 
-        {/* Testimonials - Now with transparent background */}
+        {/* Testimonials */}
         <section className="py-20 px-6">
           <div className="max-w-7xl mx-auto text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4">What Our Users Say</h2>
