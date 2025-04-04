@@ -1,29 +1,55 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function ConfirmAddress() {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
-  // Extract values from URL query parameters
-  const initialStreet = searchParams.get("street") || "";
-  const initialCity = searchParams.get("city") || "";
-  const initialZip = searchParams.get("zip") || "";
-
-  // Use as default state values
-  const [street, setStreet] = useState(initialStreet);
-  const [city, setCity] = useState(initialCity);
-  const [zip, setZip] = useState(initialZip);
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [province, setProvince] = useState("");
   const [error, setError] = useState("");
 
+  // 🧠 Load initial address data from localStorage (set in address.js)
+  useEffect(() => {
+    const savedAddress = JSON.parse(localStorage.getItem("business_address"));
+    if (savedAddress) {
+      setStreet(savedAddress.street || "");
+      setCity(savedAddress.city || "");
+      setPostalCode(savedAddress.postalCode || "");
+      setProvince(savedAddress.province || "");
+    }
+  }, []);
+
   const handleConfirm = () => {
-    if (!street || !city || !zip) {
+    if (!street || !city || !postalCode || !province) {
       setError("Please fill in all fields before continuing.");
       return;
     }
+
+    // 📝 Update localStorage with confirmed/edited values
+    const existingData = JSON.parse(localStorage.getItem("business_address")) || {};
+    localStorage.setItem("business_address", JSON.stringify({
+      ...existingData,
+      street,
+      city,
+      postalCode,
+      province,
+    }));
+
     setError("");
-    router.push("/onboarding/travel-fee");
+
+    // 🔁 Check what path to go next
+    const workType = localStorage.getItem("business_work_type");
+
+    if (workType === "both") {
+      router.push("/onboarding/travel-fee");
+    } else {
+      // either physical only OR fallback
+      router.push("/onboarding/subscribe");
+    }
   };
 
   return (
@@ -48,13 +74,21 @@ export default function ConfirmAddress() {
           onChange={(e) => setCity(e.target.value)}
           className="w-full p-3 border rounded-lg mt-2"
         />
-        <input
-          type="text"
-          placeholder="Zip Code"
-          value={zip}
-          onChange={(e) => setZip(e.target.value)}
-          className="w-full p-3 border rounded-lg mt-2"
-        />
+       <input
+  type="text"
+  placeholder="Postal Code"
+  value={postalCode}
+  onChange={(e) => setPostalCode(e.target.value)} // ✅
+  className="w-full p-3 border rounded-lg mt-2"
+/>
+<input
+  type="text"
+  placeholder="Province"
+  value={province}
+  onChange={(e) => setProvince(e.target.value)} // ✅
+  className="w-full p-3 border rounded-lg mt-2"
+/>
+
 
         {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
 

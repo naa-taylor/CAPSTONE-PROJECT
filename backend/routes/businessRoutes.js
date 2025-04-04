@@ -2,17 +2,22 @@ const express = require("express");
 const router = express.Router();
 const Business = require("../models/Business");
 
-// ✅ Add a New Business
+
+// ✅ Create a New Business (matches frontend structure)
 router.post("/", async (req, res) => {
   try {
-    const { businessName, category, location, contact, website, instagram, rating, priceRange, services } = req.body;
-    const newBusiness = new Business({ businessName, category, location, contact, website, instagram, rating, priceRange, services });
+    // You already structured the frontend to match this schema, so just pass the body directly
+    const newBusiness = new Business(req.body);
+
     await newBusiness.save();
     res.status(201).json(newBusiness);
   } catch (error) {
+    console.error("❌ Business creation failed:", error.message);
     res.status(400).json({ error: error.message });
   }
 });
+
+
 
 // ✅ Get All Businesses
 router.get("/", async (req, res) => {

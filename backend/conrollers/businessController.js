@@ -18,6 +18,13 @@ exports.searchBusinesses = async (req, res) => {
                 { services: { $regex: query, $options: "i" } } // Case-insensitive service search
             ];
         }
+        
+        // Check if email already exists
+        const existing = await Business.findOne({ "contact.email": req.body.contact.email });
+        if (existing) {
+        return res.status(400).json({ error: "Email already registered" });
+        }
+
 
         //changes: warp in Booleen
         // ✅ If geolocation is provided, find nearby businesses

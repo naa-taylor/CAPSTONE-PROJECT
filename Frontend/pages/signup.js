@@ -10,6 +10,7 @@ export default function Signup() {
   const searchParams = useSearchParams();
   const emailFromQuery = searchParams.get("email");
 
+  const [businessName, setBusinessName] = useState("");
   const [email, setEmail] = useState(emailFromQuery || "");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -24,17 +25,27 @@ export default function Signup() {
   }, [emailFromQuery, router]);
 
   const handleSignup = () => {
-    if (!firstName || !lastName || !phone || !password) {
+    if (!firstName || !lastName || !businessName || !phone || !password) {
       setError("Please fill in all fields.");
       return;
     }
-
+  
     setError(""); // Clear previous errors
-
-    // Redirect to onboarding step
+  
+    const ownerData = {
+      firstName,
+      lastName,
+      businessName,
+      email,
+      phone,
+      password,
+    };
+  
+    localStorage.setItem("business_owner", JSON.stringify(ownerData));
+  
     router.push("/onboarding/work-location");
   };
-
+  
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -72,6 +83,13 @@ export default function Signup() {
             paddingLeft: "50px",
             marginTop: "16px"
           }}
+        />
+        <input
+          type="text"
+          placeholder="Business/Company Name"
+          value={businessName}
+          onChange={(e) => setBusinessName(e.target.value)}
+          className="w-full p-3 border rounded-lg mt-4"
         />
         <input
           type="password"

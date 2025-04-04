@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const BusinessSchema = new mongoose.Schema({
   ownerName: { type: String, required: true },
@@ -6,13 +7,34 @@ const BusinessSchema = new mongoose.Schema({
   category: { type: String, default: "Hair Salon" },
 
   location: {
-    hasPhysicalLocation: { type: Boolean, required: true },
-    address: { type: String }, // Only required if hasPhysicalLocation is true
-    city: { type: String, required: true },
-    province: { type: String, required: true },
-    postalCode: { type: String },
+    hasPhysicalLocation: { type: Boolean, required: false },
 
-    // GeoJSON format for spatial queries
+    address: {
+      type: String,
+      required: function () {
+        return this.location?.hasPhysicalLocation;
+      },
+    },
+
+    city: {
+      type: String,
+      required: function () {
+        return this.location?.hasPhysicalLocation;
+      },
+    },
+
+    province: {
+      type: String,
+      required: function () {
+        return this.location?.hasPhysicalLocation;
+      },
+    },
+
+    postalCode: {
+      type: String,
+      required: false,
+    },
+
     coordinates: {
       type: {
         type: String,
@@ -20,27 +42,41 @@ const BusinessSchema = new mongoose.Schema({
         default: "Point"
       },
       coordinates: {
-        type: [Number], // [longitude, latitude]
+        type: [Number],
         required: function () {
-          return this.hasPhysicalLocation || this.isMobile;
+          return this.location?.hasPhysicalLocation;
         }
       }
     }
   },
 
-  isMobile: { type: Boolean, required: true },
-  mobileOnly: { type: Boolean, default: false }, // Optional flag for filtering
+  isMobile: { type: Boolean, default: false },
+  mobileOnly: { type: Boolean, default: false },
 
-  travelRadius: { type: Number, default: 0 }, // In KM (if mobile)
-  serviceAreas: { type: [String] }, // List of cities/regions for mobile service
+  travelRadius: {
+    type: Number,
+    default: 0,
+    required: function () {
+      return this.isMobile;
+    }
+  },
+
+  serviceAreas: {
+    type: [String],
+    required: function () {
+      return this.isMobile;
+    }
+  },
 
   contact: {
     phone: { type: String, required: true },
     email: { type: String, required: true }
   },
 
+  password: { type: String, required: true },
+
   website: { type: String },
-  instagram: { type: String, required: true },
+  instagram: { type: String },
   facebook: { type: String },
 
   rating: { type: Number, default: 0 },
@@ -53,14 +89,14 @@ const BusinessSchema = new mongoose.Schema({
       "Haircut", "Blowout", "Hair Coloring", "Highlights", "Balayage", "Ombre",
       "Deep Conditioning", "Scalp Treatment", "Silk Press", "Keratin Treatment",
       "Perms", "Relaxer Treatment",
-  
+
       // Men’s Cuts & Styling
       "Men's Haircut", "Beard Trim", "Fade", "Line Up", "Men’s Hair Styling",
-  
+
       // Protective Styles / Extensions
       "Hair Extensions", "Tape-In Extensions", "Weave Install", "Wig Install",
       "Wig Customization",
-  
+
       // Braids & Locs
       "Braiding", "Box Braids", "Knotless Braids", "Cornrows", "Faux Locs",
       "Locs Retwist", "Twist Out", "Curly Hair Styling"
@@ -82,14 +118,24 @@ const BusinessSchema = new mongoose.Schema({
     }
   ],
 
-  searchTags: { type: [String], default: [] }, // Extra keywords for improved search
-
+  searchTags: { type: [String], default: [] },
   createdAt: { type: Date, default: Date.now }
 });
 
-// ✅ Geospatial index for location-based queries
+// Pre-save hook to hash password
+BusinessSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+// ✅ Geospatial index
 BusinessSchema.index({ "location.coordinates": "2dsphere" });
 
 module.exports = mongoose.model("Business", BusinessSchema);
-
-
