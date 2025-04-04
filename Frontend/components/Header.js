@@ -1,30 +1,31 @@
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-export default function Header() {
+const Header = () => {
   const router = useRouter();
 
   return (
-    <header className="bg-black text-white p-4 flex items-center justify-between">
-      {/* Logo */}
-      <div className="flex items-center">
-        <Image 
-          src="/images/logo.png"
-          alt="GlowGuide Logo"
-          width={60}
-          height={60}
-        />
-      </div>
+    <header className="flex justify-end items-center px-6 py-4 bg-transparent absolute top-0 left-0 w-full z-50">
+      <nav className="flex space-x-6 text-white font-semibold">
+        {/* Smooth scroll to "How it Works" */}
+        <a href="/#how-it-works" className="hover:underline">
+          How it Works
+        </a>
 
-      {/* Login Button only */}
-      <div>
-        <button 
-          onClick={() => router.push("/login")}
-          className="bg-blue-500 px-6 py-2 rounded-lg text-white hover:bg-blue-700 transition"
-        >
-          Login
-        </button>
-      </div>
+        {/* About Page Link */}
+        <Link href="/service/about" className="hover:underline">
+          About
+        </Link>
+
+        {/* Login Button with teal gradient color */}
+        <Link href="/login">
+          <button className="bg-[#1D818A] text-white text-sm px-3 py-1.5 rounded-md hover:bg-[#176a71] transition">
+            Login
+          </button>
+        </Link>
+      </nav>
     </header>
   );
-}
+};
+
+export default Header;

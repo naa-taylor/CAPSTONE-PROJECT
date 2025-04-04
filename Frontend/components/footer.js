@@ -19,7 +19,6 @@ export default function Footer() {
             <li><a href="#" className="hover:text-white">Find a Stylist</a></li>
             <li><a href="#" className="hover:text-white">Book Appointments</a></li>
             <li><a href="#" className="hover:text-white">Browse Services</a></li>
-            <li><a href="#" className="hover:text-white">Gift Cards</a></li>
           </ul>
         </div>
 
@@ -28,8 +27,6 @@ export default function Footer() {
           <h4 className="text-white font-semibold mb-3">For Professionals</h4>
           <ul className="space-y-2 text-sm">
             <li><a href="#" className="hover:text-white">List Your Business</a></li>
-            <li><a href="#" className="hover:text-white">Business Dashboard</a></li>
-            <li><a href="#" className="hover:text-white">Marketing Tools</a></li>
             <li><a href="#" className="hover:text-white">Pricing Plans</a></li>
           </ul>
         </div>
@@ -39,9 +36,8 @@ export default function Footer() {
           <h4 className="text-white font-semibold mb-3">Company</h4>
           <ul className="space-y-2 text-sm">
             <li><a href="/service/about" className="hover:text-white">About Us</a></li>
-            <li><a href="#" className="hover:text-white">Careers</a></li>
             <li><a href="/service/contact" className="hover:text-white">Contact Us</a></li>
-            <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
+            <li><a href="/service/privacy-policy" className="hover:text-white">Privacy Policy</a></li>
           </ul>
         </div>
       </div>
