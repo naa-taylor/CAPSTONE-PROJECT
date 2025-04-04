@@ -75,7 +75,7 @@ export default function HowItWorksSection() {
             }}
           >
             <Image
-              src="/images/.jpg"
+              src="/images/calendar.png"
               alt="Reminders"
               width={500}
               height={500}
@@ -140,7 +140,7 @@ export default function HowItWorksSection() {
             }}
           >
             <Image
-              src="/images/1703837388hair-salon-abu-dhabi.webp"
+              src="/images/Elegant Salon Interaction.jpeg"
               alt="Top rated pros"
               width={500}
               height={500}
