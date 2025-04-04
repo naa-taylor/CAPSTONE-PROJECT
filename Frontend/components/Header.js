@@ -6,10 +6,10 @@ import Image from "next/image";
 const Header = () => {
   return (
     <header className="flex justify-between items-center px-6 py-3 bg-transparent absolute top-0 left-0 w-full z-50">
-      {/* Logo Image - clicking it will reload the page */}
+      {/* Logo */}
       <a href="/" className="flex items-center">
         <Image
-          src="/images/logo.png" // Make sure the image is in /public/images/logo.png
+          src="/images/logo.png"
           alt="GlowGuide Logo"
           width={40}
           height={40}
@@ -19,9 +19,10 @@ const Header = () => {
 
       {/* Nav Links */}
       <nav className="flex space-x-6 text-white font-semibold">
-        <a href="/#how-it-works" className="hover:underline">
+        {/* ✅ Scrolls without reloading */}
+        <Link href="#how-it-works" scroll={false} className="hover:underline">
           How it Works
-        </a>
+        </Link>
 
         <Link href="/service/about" className="hover:underline">
           About

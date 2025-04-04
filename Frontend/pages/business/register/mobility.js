@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
@@ -9,7 +11,6 @@ export default function MobilityPage() {
   const [travelRadius, setTravelRadius] = useState(0);
   const [serviceAreas, setServiceAreas] = useState("");
 
-  // Load saved data if exists
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("businessData"));
     if (saved?.isMobile !== undefined) setIsMobile(saved.isMobile);
@@ -32,11 +33,11 @@ export default function MobilityPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-100">
-      <div className="bg-white shadow-md rounded-xl w-full max-w-md p-6 space-y-4">
-        <h1 className="text-xl font-bold text-center">Mobility Options</h1>
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-r from-[#1D818A] to-[#421763]">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 space-y-5">
+        <h1 className="text-2xl font-bold text-center text-gray-800">Mobility Options</h1>
 
-        <label className="flex items-center space-x-2">
+        <label className="flex items-center space-x-2 text-gray-700">
           <input
             type="checkbox"
             checked={isMobile}
@@ -47,7 +48,7 @@ export default function MobilityPage() {
 
         {isMobile && (
           <>
-            <label className="flex items-center space-x-2">
+            <label className="flex items-center space-x-2 text-gray-700">
               <input
                 type="checkbox"
                 checked={mobileOnly}
@@ -56,30 +57,32 @@ export default function MobilityPage() {
               <span>This business is mobile only (no physical location)</span>
             </label>
 
-            <label className="block font-medium mt-4">Travel Radius (km)</label>
-            <input
-              type="number"
-              min="0"
-              className="input"
-              value={travelRadius}
-              onChange={(e) => setTravelRadius(e.target.value)}
-            />
+            <div>
+              <label className="block font-medium text-gray-700 mt-4 mb-1">Travel Radius (km)</label>
+              <input
+                type="number"
+                min="0"
+                className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1D818A]"
+                value={travelRadius}
+                onChange={(e) => setTravelRadius(e.target.value)}
+              />
+            </div>
 
-            <label className="block font-medium mt-2">
-              Service Areas (comma-separated)
-            </label>
-            <input
-              className="input"
-              placeholder="e.g. Oshawa, Ajax, Pickering"
-              value={serviceAreas}
-              onChange={(e) => setServiceAreas(e.target.value)}
-            />
+            <div>
+              <label className="block font-medium text-gray-700 mt-4 mb-1">Service Areas</label>
+              <input
+                placeholder="e.g. Oshawa, Ajax, Pickering"
+                className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1D818A]"
+                value={serviceAreas}
+                onChange={(e) => setServiceAreas(e.target.value)}
+              />
+            </div>
           </>
         )}
 
         <button
           onClick={handleNext}
-          className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800"
+          className="w-full bg-[#421763] text-white py-3 rounded-md hover:bg-[#310F4E] transition font-semibold"
         >
           Continue
         </button>

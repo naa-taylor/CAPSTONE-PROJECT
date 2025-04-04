@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -14,27 +16,26 @@ export default function ReviewPage() {
 
   const handleSubmit = async () => {
     if (!businessData) return;
-  
-    // Ensure email and password are present
+
     if (!businessData.contact?.email || !businessData.password) {
       alert("Missing email or password. Please go back and fill in all fields.");
       return;
     }
-  
+
     try {
       setIsSubmitting(true);
-  
+
       const response = await axios.post("http://localhost:5000/api/businesses", businessData);
-  
+
       alert("✅ Business registered successfully!");
       localStorage.removeItem("businessData");
       router.push("/business/register/thank-you");
     } catch (error) {
       console.error("❌ Error submitting data:", error);
-  
+
       if (error.response?.data?.error === "Email already registered.") {
         alert("❌ That email is already in use. You’ll be redirected to re-enter it.");
-        router.push("/business/register/start"); // 🔁 Send them back to fix it
+        router.push("/business/register/start");
         return;
       } else {
         alert("There was an error submitting the form. Please try again.");
@@ -43,17 +44,17 @@ export default function ReviewPage() {
       setIsSubmitting(false);
     }
   };
-  
+
   if (!businessData) {
-    return <p className="text-center p-6">Loading business data...</p>;
+    return <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#1D818A] to-[#421763] text-white text-lg font-medium">Loading business data...</div>;
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-100">
-      <div className="bg-white shadow-md rounded-xl w-full max-w-2xl p-6 space-y-4">
-        <h1 className="text-2xl font-bold text-center">Review Your Business Info</h1>
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-r from-[#1D818A] to-[#421763]">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl p-6 space-y-6">
+        <h1 className="text-3xl font-bold text-center text-gray-800">Review Your Business Info</h1>
 
-        <div className="text-sm space-y-2">
+        <div className="text-sm space-y-2 text-gray-700">
           <p><strong>Owner Name:</strong> {businessData.ownerName}</p>
           <p><strong>Business Name:</strong> {businessData.businessName}</p>
           <p><strong>Email:</strong> {businessData.contact?.email}</p>
@@ -87,7 +88,9 @@ export default function ReviewPage() {
         <button
           onClick={handleSubmit}
           disabled={isSubmitting}
-          className="w-full bg-green-600 text-white p-3 rounded-md hover:bg-green-700"
+          className={`w-full py-3 rounded-md font-semibold text-white transition ${
+            isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#1D818A] hover:bg-[#176a71]'
+          }`}
         >
           {isSubmitting ? "Submitting..." : "Submit to Register"}
         </button>

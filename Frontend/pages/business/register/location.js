@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
@@ -9,7 +11,7 @@ export default function LocationPage() {
   const [city, setCity] = useState("");
   const [province, setProvince] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [coordinates, setCoordinates] = useState([-78.8966, 43.9447]); // Default Oshawa coords
+  const [coordinates, setCoordinates] = useState([-78.8966, 43.9447]); // Oshawa
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("businessData"));
@@ -23,7 +25,6 @@ export default function LocationPage() {
     }
   }, []);
 
-  // ✅ Get browser location
   const handleGetLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -62,11 +63,11 @@ export default function LocationPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-100">
-      <div className="bg-white shadow-md rounded-xl w-full max-w-md p-6 space-y-4">
-        <h1 className="text-xl font-bold text-center">Business Location</h1>
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-r from-[#1D818A] to-[#421763]">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 space-y-5">
+        <h1 className="text-2xl font-bold text-center text-gray-800">Business Location</h1>
 
-        <label className="flex items-center space-x-2">
+        <label className="flex items-center space-x-2 text-gray-700">
           <input
             type="checkbox"
             checked={hasPhysicalLocation}
@@ -81,40 +82,40 @@ export default function LocationPage() {
               placeholder="Street Address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="input"
+              className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1D818A]"
               required
             />
             <input
               placeholder="City"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="input"
+              className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1D818A]"
               required
             />
             <input
               placeholder="Province"
               value={province}
               onChange={(e) => setProvince(e.target.value)}
-              className="input"
+              className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1D818A]"
               required
             />
             <input
               placeholder="Postal Code"
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
-              className="input"
+              className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1D818A]"
             />
 
             <button
               type="button"
-              className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"
+              className="w-full bg-[#1D818A] text-white py-3 rounded-md hover:bg-[#176a71] transition font-semibold"
               onClick={handleGetLocation}
             >
               📍 Use My Location
             </button>
 
             <p className="text-sm text-gray-500">
-              Coordinates saved: <br />
+              Coordinates saved:<br />
               Longitude: {coordinates[0]}, Latitude: {coordinates[1]}
             </p>
           </>
@@ -122,7 +123,7 @@ export default function LocationPage() {
 
         <button
           onClick={handleNext}
-          className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800"
+          className="w-full bg-[#421763] text-white py-3 rounded-md hover:bg-[#310F4E] transition font-semibold"
         >
           Continue
         </button>

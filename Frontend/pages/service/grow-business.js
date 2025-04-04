@@ -1,24 +1,16 @@
 "use client";
-import { useState } from "react";
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSession, signIn } from "next-auth/react";
 import { ExternalLink } from "lucide-react";
 
 export default function GrowBusiness() {
   const router = useRouter();
-  const { data: session, status } = useSession();
   const basePrice = 29.99;
 
   const handleStartTrial = () => {
-    if (status === "loading") return;
-    if (!session) {
-      signIn();
-    } else {
-      router.push("/service/onboarding");
-    }
+    router.push("/business/register/start");
   };
 
   return (
@@ -85,7 +77,10 @@ export default function GrowBusiness() {
             <div className="p-6 rounded-xl shadow border border-white">
               <h3 className="text-2xl font-bold text-white">GlowGuide Subscription</h3>
               <p className="mt-1">Streamlining the day-to-day so you can focus on what you love.</p>
-              <div className="mt-4 text-3xl font-bold text-white">${basePrice.toFixed(2)} <span className="text-sm font-normal">/ per month + tax</span></div>
+              <div className="mt-4 text-3xl font-bold text-white">
+                ${basePrice.toFixed(2)}{" "}
+                <span className="text-sm font-normal">/ per month + tax</span>
+              </div>
             </div>
           </div>
 
