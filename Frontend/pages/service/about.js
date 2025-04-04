@@ -61,8 +61,10 @@ export default function About() {
         <div className="max-w-3xl mt-8">
           <h2 className="text-2xl font-bold">Our Mission</h2>
           <p className="text-white/90 mt-2">
-            At GlowGuide, our mission is to empower individuals to discover the best beauty and wellness services available.
-            We are committed to making it easier for people to find the right professionals who can help them feel confident, healthy, and beautiful.
+          At GlowGuide, our mission is to empower individuals to discover top-tier hair services and professionals in their area.
+          We are committed to making it easier for people to find the right hairstylists who help them feel confident, cared for, and beautiful—every step of the way.
+
+
           </p>
         </div>
 
