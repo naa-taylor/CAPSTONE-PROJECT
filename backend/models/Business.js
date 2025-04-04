@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const BusinessSchema = new mongoose.Schema({
   ownerName: { type: String, required: true },
@@ -72,6 +73,8 @@ const BusinessSchema = new mongoose.Schema({
     email: { type: String, required: true }
   },
 
+  password: { type: String, required: true },
+
   website: { type: String },
   instagram: { type: String },
   facebook: { type: String },
@@ -117,6 +120,19 @@ const BusinessSchema = new mongoose.Schema({
 
   searchTags: { type: [String], default: [] },
   createdAt: { type: Date, default: Date.now }
+});
+
+// Pre-save hook to hash password
+BusinessSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
 
 // ✅ Geospatial index
