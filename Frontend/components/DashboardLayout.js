@@ -1,11 +1,18 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaChartBar, FaCalendarCheck, FaUsers, FaCog, FaSignOutAlt } from "react-icons/fa";
 import Image from "next/image";
 
 export default function DashboardLayout({ children }) {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.clear(); // Optional: clear session/token data
+    router.push("/");     // Redirect to home page
+  };
 
   return (
     <div className="flex h-screen">
@@ -39,7 +46,12 @@ export default function DashboardLayout({ children }) {
               <FaCog /> {isSidebarOpen && <span>Settings</span>}
             </div>
           </Link>
-          <button onClick={() => alert("Logout coming soon")} className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded">
+
+          {/* ✅ Logout Button */}
+          <button
+            onClick={handleLogout}
+            className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded"
+          >
             <FaSignOutAlt /> {isSidebarOpen && <span>Logout</span>}
           </button>
         </nav>
