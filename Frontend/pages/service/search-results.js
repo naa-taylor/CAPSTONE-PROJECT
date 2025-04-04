@@ -1,10 +1,11 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-
-import Header from "../../components/Header";
 import Footer from "../../components/footer";
 import SearchResultCard from "../../components/SearchResultCard";
+import Image from "next/image";
 
 export default function SearchResults() {
   const router = useRouter();
@@ -40,8 +41,20 @@ export default function SearchResults() {
 
   return (
     <div className="w-full min-h-screen flex flex-col bg-white text-gray-800">
-      <Header />
+      {/* Top Logo Navigation */}
+      <div className="w-full flex items-center justify-start p-4">
+        <a href="/" className="flex items-center">
+          <Image
+            src="/images/logo.png"
+            alt="GlowGuide Logo"
+            width={50}
+            height={50}
+            className="object-contain"
+          />
+        </a>
+      </div>
 
+      {/* Main Content */}
       <main className="container mx-auto px-6 py-10">
         <h2 className="text-3xl font-bold mb-6">
           Search Results for{" "}

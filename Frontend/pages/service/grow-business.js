@@ -1,13 +1,17 @@
 "use client";
+
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ExternalLink } from "lucide-react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Footer from "../../components/footer";
 
 export default function GrowBusiness() {
   const router = useRouter();
-  const basePrice = 29.99;
+  const basePrice = 9.99;
 
   const handleStartTrial = () => {
     router.push("/business/register/start");
@@ -55,19 +59,33 @@ export default function GrowBusiness() {
       </div>
 
       {/* Business Features */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-12 bg-gradient-to-r from-[#1D818A] to-[#421763] text-center text-white">
-        <div className="p-6 rounded-lg shadow-lg border border-white">
-          <h2 className="text-2xl font-bold">24/7 Online Booking</h2>
-          <p className="mt-2">Allow clients to book services anytime.</p>
-        </div>
-        <div className="p-6 rounded-lg shadow-lg border border-white">
-          <h2 className="text-2xl font-bold">Integrated Payments</h2>
-          <p className="mt-2">Get paid directly through the platform.</p>
-        </div>
-        <div className="p-6 rounded-lg shadow-lg border border-white">
-          <h2 className="text-2xl font-bold">Marketing Tools</h2>
-          <p className="mt-2">Attract new clients with built-in promotions.</p>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-12 bg-gradient-to-r from-[#1D818A] to-[#421763] text-white">
+        {[{
+          title: "24/7 Online Booking",
+          short: "Allow clients to book services anytime.",
+          long: "Clients can schedule appointments anytime, even outside business hours, increasing your bookings while reducing missed opportunities.",
+        }, {
+          title: "Integrated Payments",
+          short: "Get paid directly through the platform.",
+          long: "No more cash hassles. Accept secure online payments, track revenue, and offer clients multiple ways to pay.",
+        }, {
+          title: "Marketing Tools",
+          short: "Attract new clients with built-in promotions.",
+          long: "Boost visibility with featured listings, shareable profiles, and automated promotional tools to help your business grow."
+        }].map((feature, index) => (
+          <div
+            key={index}
+            className="group p-6 rounded-lg shadow-lg border border-white transition-all duration-500 ease-in-out hover:bg-white hover:text-[#421763] hover:scale-[1.03] cursor-pointer"
+          >
+            <h2 className="text-2xl font-bold mb-2">{feature.title}</h2>
+            <p className="text-sm md:text-base transition-opacity duration-300 group-hover:opacity-0">
+              {feature.short}
+            </p>
+            <p className="text-sm md:text-base mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              {feature.long}
+            </p>
+          </div>
+        ))}
       </div>
 
       {/* Pricing Section */}
@@ -76,10 +94,11 @@ export default function GrowBusiness() {
           <div className="md:col-span-2 space-y-6">
             <div className="p-6 rounded-xl shadow border border-white">
               <h3 className="text-2xl font-bold text-white">GlowGuide Subscription</h3>
-              <p className="mt-1">Streamlining the day-to-day so you can focus on what you love.</p>
+              <p className="mt-1">
+                Streamlining the day-to-day so you can focus on what you love.
+              </p>
               <div className="mt-4 text-3xl font-bold text-white">
-                ${basePrice.toFixed(2)}{" "}
-                <span className="text-sm font-normal">/ per month + tax</span>
+                ${basePrice.toFixed(2)} <span className="text-sm font-normal">/ per month + tax</span>
               </div>
             </div>
           </div>
@@ -109,10 +128,43 @@ export default function GrowBusiness() {
         </div>
       </div>
 
+      {/* FAQ Carousel Section */}
+      <div className="bg-gradient-to-r from-[#1D818A] to-[#421763] text-white py-16 px-6">
+        <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+        <Carousel
+          showThumbs={false}
+          infiniteLoop
+          autoPlay
+          interval={6000}
+          showStatus={false}
+          showArrows={false}
+          showIndicators
+          emulateTouch
+        >
+          {[{
+            question: "Do I need a website?",
+            answer: "Nope! GlowGuide provides a profile page where clients can learn about you, view your work, and book you directly."
+          }, {
+            question: "What if I work mobile or in a salon suite?",
+            answer: "GlowGuide supports both. Set your service areas or location preferences during setup."
+          }, {
+            question: "Is there a free trial?",
+            answer: "Yes! You can start with a free trial before choosing a subscription. No card required to begin."
+          }].map((item, i) => (
+            <div key={i} className="p-6 max-w-3xl mx-auto text-center">
+              <h3 className="text-xl font-bold mb-2">{item.question}</h3>
+              <p className="text-white text-sm md:text-base">{item.answer}</p>
+            </div>
+          ))}
+        </Carousel>
+      </div>
+
       {/* CTA Section */}
       <div className="flex flex-col items-center justify-center bg-gradient-to-r from-[#1D818A] to-[#421763] text-white py-12 px-6">
         <h2 className="text-3xl font-bold">Let's Do More, Better</h2>
-        <p className="mt-2 text-lg">Get started today and take your business to the next level.</p>
+        <p className="mt-2 text-lg">
+          Get started today and take your business to the next level.
+        </p>
       </div>
     </div>
   );
