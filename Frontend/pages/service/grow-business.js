@@ -118,14 +118,6 @@ export default function GrowBusiness() {
       <div className="flex flex-col items-center justify-center bg-gradient-to-r from-[#1D818A] to-[#421763] text-white py-12 px-6">
         <h2 className="text-3xl font-bold">Let's Do More, Better</h2>
         <p className="mt-2 text-lg">Get started today and take your business to the next level.</p>
-        <Button
-          color="secondary"
-          size="lg"
-          className="bg-white text-[#421763] px-6 py-3 rounded-lg mt-4 hover:opacity-90 font-semibold"
-          onPress={handleStartTrial}
-        >
-          Start Free Trial
-        </Button>
       </div>
     </div>
   );

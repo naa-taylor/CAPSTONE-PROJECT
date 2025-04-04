@@ -22,7 +22,7 @@ const FeatureSection = () => (
             anytime, anywhere.
           </p>
         </div>
-        <div className="mt-6 font-semibold text-center text-lg">Download App</div>
+        <div className="mt-6 font-semibold text-center text-lg">Book Your First Appiontment</div>
       </div>
     </div>
 

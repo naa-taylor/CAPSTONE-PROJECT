@@ -1,9 +1,11 @@
 "use client";
+
 import Header from "../../components/Header";
 import Footer from "../../components/footer";
 import ImageGrid from "../../components/imagegrid";
 import FeatureSection from "../../components/FeatureSection";
 import HowItWorksSection from "../../components/HowItWorksSection";
+import GradientParticles from "../../components/GradientParticles";
 import { useState } from "react";
 import { Button } from "@heroui/react";
 import useGeoLocation from "../../hooks/useGeoLocation";
@@ -49,7 +51,8 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[linear-gradient(90deg,_#1D818A_0%,_#421763_100%)] text-white">
+    <div className="w-full min-h-screen bg-[linear-gradient(90deg,_#1D818A_0%,_#421763_100%)] text-white relative overflow-hidden">
+      <GradientParticles />
       <Header />
 
       {/* Hero */}
@@ -89,16 +92,15 @@ export default function Home() {
 
         {/* CTA Button */}
         <div className="mt-6 flex gap-4">
-  <a
-    href="/service/grow-business"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-[#421763] text-white px-6 py-3 rounded-lg font-medium text-lg inline-flex items-center justify-center hover:bg-[#310F4E] transition"
-  >
-    List Your Business
-  </a>
-</div>
-
+          <a
+            href="/service/grow-business"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#421763] text-white px-6 py-3 rounded-lg font-medium text-lg inline-flex items-center justify-center hover:bg-[#310F4E] transition"
+          >
+            List Your Business
+          </a>
+        </div>
 
         <div className="relative w-full mt-16 z-0">
           <ImageGrid />
@@ -126,15 +128,15 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {[{
               name: "Jessica Wilson",
-              role: "Client • New York",
+              role: "Client • Toronto",
               quote: "I've been using GlowGuide for the past 6 months and it's completely transformed how I find new stylists. The booking process is seamless and I love being able to see portfolios before I book. Never had a bad experience!"
             }, {
               name: "Daniel Thompson",
-              role: "Salon Owner • Chicago",
+              role: "Salon Owner • Oshawa",
               quote: "As a salon owner, GlowGuide has been a game-changer for my business. The platform makes it easy to showcase our work and has brought in so many new clients. The booking system integrates perfectly with our schedule."
             }, {
               name: "Angela Rivera",
-              role: "Client • Los Angeles",
+              role: "Client • Mississauga",
               quote: "GlowGuide saved me so much time. I was able to find a great stylist in my area and book instantly. The reminders are super helpful, and everything is just smooth."
             }].map((user, idx) => (
               <div key={idx} className="bg-white/10 backdrop-blur-sm shadow-xl rounded-2xl p-6 text-left">
