@@ -16,23 +16,26 @@ export default function ReviewPage() {
 
   const handleSubmit = async () => {
     if (!businessData) return;
-
+  
     if (!businessData.contact?.email || !businessData.password) {
       alert("Missing email or password. Please go back and fill in all fields.");
       return;
     }
-
+  
     try {
       setIsSubmitting(true);
-
+  
       const response = await axios.post("http://localhost:5000/api/businesses", businessData);
-
+  
+      // ✅ Save returned business to localStorage for dashboard use
+      localStorage.setItem("business", JSON.stringify(response.data.business));
+  
       alert("✅ Business registered successfully!");
       localStorage.removeItem("businessData");
       router.push("/business/register/thank-you");
     } catch (error) {
       console.error("❌ Error submitting data:", error);
-
+  
       if (error.response?.data?.error === "Email already registered.") {
         alert("❌ That email is already in use. You’ll be redirected to re-enter it.");
         router.push("/business/register/start");
@@ -44,7 +47,7 @@ export default function ReviewPage() {
       setIsSubmitting(false);
     }
   };
-
+  
   if (!businessData) {
     return <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#1D818A] to-[#421763] text-white text-lg font-medium">Loading business data...</div>;
   }

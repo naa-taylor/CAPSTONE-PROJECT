@@ -1,12 +1,10 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
 import { FaChartBar, FaCalendarCheck, FaUsers, FaCog, FaSignOutAlt } from "react-icons/fa";
 import Image from "next/image";
 
 export default function DashboardLayout({ children }) {
-  const { data: session } = useSession();
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   return (
@@ -19,6 +17,7 @@ export default function DashboardLayout({ children }) {
             {isSidebarOpen ? "◀" : "▶"}
           </button>
         </div>
+
         <nav className="flex flex-col space-y-4 p-4">
           <Link href="/dashboard">
             <div className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded">
@@ -40,11 +39,9 @@ export default function DashboardLayout({ children }) {
               <FaCog /> {isSidebarOpen && <span>Settings</span>}
             </div>
           </Link>
-          {session && (
-            <button onClick={() => signOut()} className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded">
-              <FaSignOutAlt /> {isSidebarOpen && <span>Logout</span>}
-            </button>
-          )}
+          <button onClick={() => alert("Logout coming soon")} className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded">
+            <FaSignOutAlt /> {isSidebarOpen && <span>Logout</span>}
+          </button>
         </nav>
       </div>
 
