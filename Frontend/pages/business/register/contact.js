@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -18,7 +20,7 @@ export default function ContactPage() {
   }, []);
 
   const handleNext = () => {
-    if (!phone) {
+    if (!phone.trim()) {
       alert("Phone number is required.");
       return;
     }
@@ -41,46 +43,54 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-100">
-      <div className="bg-white shadow-md rounded-xl w-full max-w-md p-6 space-y-4">
-        <h1 className="text-xl font-bold text-center">Contact Information</h1>
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-r from-[#1D818A] to-[#421763]">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 space-y-5">
+        <h1 className="text-2xl font-bold text-center text-gray-800">Contact Information</h1>
 
-        <label className="block font-medium">Phone Number *</label>
-        <input
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="input"
-          placeholder="e.g. 647-123-4567"
-          required
-        />
+        <div>
+          <label className="block font-medium text-gray-700 mb-1">Phone Number *</label>
+          <input
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1D818A]"
+            placeholder="e.g. 647-123-4567"
+            required
+          />
+        </div>
 
-        <label className="block font-medium">Website (optional)</label>
-        <input
-          value={website}
-          onChange={(e) => setWebsite(e.target.value)}
-          className="input"
-          placeholder="https://example.com"
-        />
+        <div>
+          <label className="block font-medium text-gray-700 mb-1">Website (optional)</label>
+          <input
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1D818A]"
+            placeholder="https://example.com"
+          />
+        </div>
 
-        <label className="block font-medium">Instagram (optional)</label>
-        <input
-          value={instagram}
-          onChange={(e) => setInstagram(e.target.value)}
-          className="input"
-          placeholder="https://instagram.com/yourbusiness"
-        />
+        <div>
+          <label className="block font-medium text-gray-700 mb-1">Instagram (optional)</label>
+          <input
+            value={instagram}
+            onChange={(e) => setInstagram(e.target.value)}
+            className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1D818A]"
+            placeholder="https://instagram.com/yourbusiness"
+          />
+        </div>
 
-        <label className="block font-medium">Facebook (optional)</label>
-        <input
-          value={facebook}
-          onChange={(e) => setFacebook(e.target.value)}
-          className="input"
-          placeholder="https://facebook.com/yourbusiness"
-        />
+        <div>
+          <label className="block font-medium text-gray-700 mb-1">Facebook (optional)</label>
+          <input
+            value={facebook}
+            onChange={(e) => setFacebook(e.target.value)}
+            className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1D818A]"
+            placeholder="https://facebook.com/yourbusiness"
+          />
+        </div>
 
         <button
           onClick={handleNext}
-          className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800"
+          className="w-full bg-[#421763] text-white py-3 rounded-md hover:bg-[#310F4E] transition font-semibold"
         >
           Continue
         </button>

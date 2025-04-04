@@ -1,23 +1,33 @@
+'use client';
+
 import Link from "next/link";
-import { useRouter } from "next/router";
+import Image from "next/image";
 
 const Header = () => {
-  const router = useRouter();
-
   return (
-    <header className="flex justify-end items-center px-6 py-4 bg-transparent absolute top-0 left-0 w-full z-50">
-      <nav className="flex space-x-6 text-white font-semibold">
-        {/* Smooth scroll to "How it Works" */}
-        <a href="/#how-it-works" className="hover:underline">
-          How it Works
-        </a>
+    <header className="flex justify-between items-center px-6 py-3 bg-transparent absolute top-0 left-0 w-full z-50">
+      {/* Logo */}
+      <a href="/" className="flex items-center">
+        <Image
+          src="/images/logo.png"
+          alt="GlowGuide Logo"
+          width={40}
+          height={40}
+          className="object-contain"
+        />
+      </a>
 
-        {/* About Page Link */}
+      {/* Nav Links */}
+      <nav className="flex space-x-6 text-white font-semibold">
+        {/* ✅ Scrolls without reloading */}
+        <Link href="#how-it-works" scroll={false} className="hover:underline">
+          How it Works
+        </Link>
+
         <Link href="/service/about" className="hover:underline">
           About
         </Link>
 
-        {/* Login Button with teal gradient color */}
         <Link href="/login">
           <button className="bg-[#1D818A] text-white text-sm px-3 py-1.5 rounded-md hover:bg-[#176a71] transition">
             Login

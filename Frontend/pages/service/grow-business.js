@@ -1,24 +1,16 @@
 "use client";
-import { useState } from "react";
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSession, signIn } from "next-auth/react";
 import { ExternalLink } from "lucide-react";
 
 export default function GrowBusiness() {
   const router = useRouter();
-  const { data: session, status } = useSession();
   const basePrice = 29.99;
 
   const handleStartTrial = () => {
-    if (status === "loading") return;
-    if (!session) {
-      signIn();
-    } else {
-      router.push("/business/register/start");
-    }
+    router.push("/business/register/start");
   };
 
   return (
@@ -85,7 +77,10 @@ export default function GrowBusiness() {
             <div className="p-6 rounded-xl shadow border border-white">
               <h3 className="text-2xl font-bold text-white">GlowGuide Subscription</h3>
               <p className="mt-1">Streamlining the day-to-day so you can focus on what you love.</p>
-              <div className="mt-4 text-3xl font-bold text-white">${basePrice.toFixed(2)} <span className="text-sm font-normal">/ per month + tax</span></div>
+              <div className="mt-4 text-3xl font-bold text-white">
+                ${basePrice.toFixed(2)}{" "}
+                <span className="text-sm font-normal">/ per month + tax</span>
+              </div>
             </div>
           </div>
 
@@ -118,14 +113,6 @@ export default function GrowBusiness() {
       <div className="flex flex-col items-center justify-center bg-gradient-to-r from-[#1D818A] to-[#421763] text-white py-12 px-6">
         <h2 className="text-3xl font-bold">Let's Do More, Better</h2>
         <p className="mt-2 text-lg">Get started today and take your business to the next level.</p>
-        <Button
-          color="secondary"
-          size="lg"
-          className="bg-white text-[#421763] px-6 py-3 rounded-lg mt-4 hover:opacity-90 font-semibold"
-          onPress={handleStartTrial}
-        >
-          Start Free Trial
-        </Button>
       </div>
     </div>
   );
