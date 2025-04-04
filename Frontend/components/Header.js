@@ -19,7 +19,6 @@ const Header = () => {
 
       {/* Nav Links */}
       <nav className="flex space-x-6 text-white font-semibold">
-        {/* ✅ Scrolls smoothly without page reload */}
         <Link href="#how-it-works" scroll={false} className="hover:underline">
           How it Works
         </Link>
@@ -28,9 +27,9 @@ const Header = () => {
           About
         </Link>
 
-        <Link href="/login">
+        <Link href="/customer/signup">
           <button className="bg-[#1D818A] text-white text-sm px-3 py-1.5 rounded-md hover:bg-[#176a71] transition">
-            Login
+            Sign up
           </button>
         </Link>
       </nav>
@@ -39,3 +38,4 @@ const Header = () => {
 };
 
 export default Header;
+
