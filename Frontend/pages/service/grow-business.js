@@ -17,7 +17,7 @@ export default function GrowBusiness() {
     if (!session) {
       signIn();
     } else {
-      router.push("/service/onboarding");
+      router.push("/business/register/start");
     }
   };
 

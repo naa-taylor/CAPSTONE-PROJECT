@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Business = require("../models/Business");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 
 // ✅ Create a New Business (matches frontend structure)
@@ -111,5 +113,25 @@ router.get("/search", async (req, res) => {
         res.status(500).json({ error: error.message });
         }
     });
+
+    // 🔐 Business Login Route
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const business = await Business.findOne({ email });
+    if (!business) return res.status(401).json({ message: "Email not found" });
+
+    const match = await bcrypt.compare(password, business.password);
+    if (!match) return res.status(401).json({ message: "Invalid password" });
+
+    const token = jwt.sign({ id: business._id }, "your-secret-key", { expiresIn: "1d" });
+
+    res.json({ token, business });
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 module.exports = router;
