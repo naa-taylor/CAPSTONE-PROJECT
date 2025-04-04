@@ -17,8 +17,12 @@ export default function Footer() {
           <h4 className="text-white font-semibold mb-3">For Clients</h4>
           <ul className="space-y-2 text-sm">
             <li><a href="#" className="hover:text-white">Find a Stylist</a></li>
+<<<<<<< HEAD
             <li><a href="#" className="hover:text-white">Book Appointments</a></li>
             
+=======
+            <li><a href="#" className="hover:text-white">Browse Services</a></li>
+>>>>>>> 722b38fc1d2daef1c70f4a0b04bc87f26c4cafc0
           </ul>
         </div>
 
@@ -26,8 +30,7 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-3">For Professionals</h4>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:text-white">List Your Business</a></li>
-            <li><a href="#" className="hover:text-white">Pricing Plans</a></li>
+          <li><a href="/service/grow-business" className="hover:text-white">List Your Business</a></li>
           </ul>
         </div>
 

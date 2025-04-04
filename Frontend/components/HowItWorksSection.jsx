@@ -17,12 +17,10 @@ export default function HowItWorksSection() {
         <div className="md:w-1/2">
           <h2 className="text-4xl font-bold mb-4">Appointments done better</h2>
           <p className="text-white/80 text-lg mb-4">
-                      Looking for your next appointment with a local hairstylist who truly understands your style?
-                      Whether you're in the mood for a chic cut, a silk press, or a vibrant color refresh—GlowGuide connects you with top women hairstylists near you in seconds.
-                      No more phone calls or waiting games. Book anytime, from anywhere, 24/7.
-                      Discover your perfect look and book instantly with GlowGuide.
-
-
+            Looking for your next appointment with a local hairstylist who truly understands your style?
+            Whether you're in the mood for a chic cut, a silk press, or a vibrant color refresh—GlowGuide connects you with top women hairstylists near you in seconds.
+            No more phone calls or waiting games. Book anytime, from anywhere, 24/7.
+            Discover your perfect look and book instantly with GlowGuide.
           </p>
           <p className="text-white/80 text-lg mb-4">
             GlowGuide makes it easy to find and book within seconds. No more phone tag.
@@ -77,7 +75,7 @@ export default function HowItWorksSection() {
             }}
           >
             <Image
-              src="/images/calendar.jpg"
+              src="/images/.jpg"
               alt="Reminders"
               width={500}
               height={500}
@@ -89,10 +87,8 @@ export default function HowItWorksSection() {
         <div className="md:w-1/2">
           <h2 className="text-4xl font-bold mb-4">Something come up? We’ve got you.</h2>
           <p className="text-white/80 text-lg mb-4">
-              GlowGuide is your go-to online platform for booking hair appointments—no downloads needed.
-              Manage your bookings, reschedule, or cancel anytime—all without picking up the phone.
-
-
+            GlowGuide is your go-to online platform for booking hair appointments—no downloads needed.
+            Manage your bookings, reschedule, or cancel anytime—all without picking up the phone.
           </p>
           <p className="text-white/80 text-lg">
             And because we know life gets busy, we’ll send you reminders.
@@ -112,7 +108,7 @@ export default function HowItWorksSection() {
         <div className="md:w-1/2">
           <h2 className="text-4xl font-bold mb-4">Book with the best, near you</h2>
           <p className="text-white/80 text-lg mb-4">
-            Take a scroll around the block to see top health and beauty businesses on GlowGuide’s marketplace.
+            Take a scroll around the block to see top hairstylists on GlowGuide’s marketplace.
           </p>
           <p className="text-white/80 text-lg mb-4">
             Check out their vibe from their business profile and hear what other people are saying with verified reviews.
@@ -120,12 +116,38 @@ export default function HowItWorksSection() {
           </p>
           <p className="text-white/80 text-lg">
             Save time and leave the stress to someone else.
-            With GlowGuide, setting up your next beauty appointment is free and easy.
+            With GlowGuide, setting up your next hair appointment is free and easy.
           </p>
         </div>
-        <div className="md:w-1/2">
-          <Image src="/images/review-profile.svg" alt="Top rated pros" width={500} height={500} />
-        </div>
+
+        <motion.div
+          className="md:w-1/2 relative z-10 group"
+          whileHover={{
+            scale: 1.03,
+            rotate: [0, 1, -1, 1, -1, 0],
+            transition: { duration: 0.8, ease: "easeInOut" },
+          }}
+        >
+          {/* Glow Gradient Background */}
+          <div className="absolute -inset-4 z-0 rounded-[58%_42%_40%_60%/50%_38%_62%_50%] bg-gradient-to-r from-[#1D818A] to-[#421763] blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
+
+          {/* Image */}
+          <div
+            className="relative shadow-2xl overflow-hidden w-full h-auto z-10"
+            style={{
+              borderRadius: "58% 42% 40% 60% / 50% 38% 62% 50%",
+              transition: "all 0.4s ease-in-out",
+            }}
+          >
+            <Image
+              src="/images/1703837388hair-salon-abu-dhabi.webp"
+              alt="Top rated pros"
+              width={500}
+              height={500}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </motion.div>
       </motion.div>
     </section>
   );
